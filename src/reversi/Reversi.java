@@ -5,19 +5,26 @@ package reversi;
 
 //imports
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 //class defnition for reversi game
 public class Reversi extends Application {
+	private StackPane stackPane;
+	private ReversiControl reversiControl;
+
 	// overridden init method
 	public void init() {
-
+		stackPane = new StackPane();
+		reversiControl = new ReversiControl();
+		stackPane.getChildren().add(reversiControl);
 	}
 	
 	// overridden start method
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Reversi");
+		primaryStage.setScene(new Scene(stackPane));
 		primaryStage.show();
 	}
 	
