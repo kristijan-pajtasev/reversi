@@ -1,6 +1,7 @@
 package reversi;
 
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Translate;
@@ -13,17 +14,55 @@ import javafx.scene.transform.Translate;
 class ReversiBoard extends Pane {
     // default constructor for the class
     public ReversiBoard() {
+        // TODO: set init state
 
+        background = new Rectangle();
+        background.setFill(Color.BLACK);
+        // TODO: set background
+
+        // TODO: set lines
+        horizontal = new Line[8];
+        horizontal_t = new Translate[8];
+        vertical = new Line[8];
+        vertical_t = new Translate[8];
+
+        for(int i = 0; i < 8; i++) {
+            horizontal[i] = new Line();
+            horizontal[i].setStroke(Color.BLUE);
+            horizontal[i].setStartX(0);
+            horizontal[i].setStartY(0);
+            horizontal[i].setEndY(0);
+            horizontal_t[i] = new Translate(0,0);
+            horizontal[i].getTransforms().add(horizontal_t[i]);
+//            getChildren().add(horizontal[i]);
+        }
+        getChildren().addAll(background, horizontal[0], horizontal[1]);
     }
 
     // public method that will try to place a piece in the given x,y coordinate
     public void placePiece(final double x, final double y) {
-
     }
 
     // overridden version of the resize method to give the board the correct size
     @Override
     public void resize(double width, double height) {
+        super.resize(width, height);
+
+        cell_width = width / 8.0;
+        cell_height = height / 8.0;
+
+        background.setWidth(width);
+        background.setHeight(height);
+
+        horizontal_t[0].setY(cell_height);
+//        ch_two.setY(2 * cell_height);
+        horizontal[0].setEndX(width);
+//        h2.setEndX(width);
+
+//        ch_one.setX(cell_width);
+//        ch_two.setX(2 * cell_width);
+//        v1.setEndY(height);
+//        v2.setEndY(height);
 
     }
 
