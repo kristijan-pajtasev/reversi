@@ -127,7 +127,11 @@ class ReversiBoard extends Pane {
 
     // private method for resizing and relocating all the pieces
     private void pieceResizeRelocate() {
-
+        for(int i = 0; i < 8; i++)
+            for(int j = 0; j < 8; j++) {
+                render[i][j].resize(cell_width, cell_height);
+                render[i][j].relocate(i * cell_width, j * cell_height);
+            }
     }
 
     // private method for determining which pieces surround x,y will update the
