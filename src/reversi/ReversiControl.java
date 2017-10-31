@@ -21,9 +21,8 @@ class ReversiControl extends Control {
     // overridden version of the resize method
     @Override
     public void resize(double width, double height) {
-
+        super.resize(width, height);
+        reversiBoard.resize(width, height);
     }
 
-    // private fields of a reversi board
-    ReversiBoard rb_board;
 }
