@@ -47,22 +47,11 @@ class ReversiBoard extends Pane {
         background.setWidth(width);
         background.setHeight(height);
 
-        for(int i = 0; i < 8; i++) {
-            horizontal_t[i].setY((i + 1) * cell_height);
-            horizontal[i].setEndX(width);
-        }
+        horizontalResizeRelocate(width);
 
-        for(int i = 0; i < 8; i++) {
-            vertical_t[i].setX((i + 1) * cell_width);
-            vertical[i].setEndY(height);
-        }
-//        h2.setEndX(width);
+        verticalResizeRelocate(height);
 
-//        ch_one.setX(cell_width);
-//        ch_two.setX(2 * cell_width);
-//        v1.setEndY(height);
-//        v2.setEndY(height);
-
+        pieceResizeRelocate();
     }
 
     // public method for resetting the game
@@ -112,12 +101,18 @@ class ReversiBoard extends Pane {
 
     // private method for resizing and relocating the horizontal lines
     private void horizontalResizeRelocate(final double width) {
-
+        for(int i = 0; i < 8; i++) {
+            horizontal_t[i].setY((i + 1) * cell_height);
+            horizontal[i].setEndX(width);
+        }
     }
 
     // private method for resizing and relocating the vertical lines
     private void verticalResizeRelocate(final double height) {
-
+        for(int i = 0; i < 8; i++) {
+            vertical_t[i].setX((i + 1) * cell_width);
+            vertical[i].setEndY(height);
+        }
     }
 
     // private method for swapping the players
