@@ -16,9 +16,10 @@ class ReversiBoard extends Pane {
     public ReversiBoard() {
         // TODO: set init state
 
+        // TODO: set background
         background = new Rectangle();
         background.setFill(Color.BLACK);
-        // TODO: set background
+        getChildren().addAll(background);
 
         // TODO: set lines
         horizontal = new Line[8];
@@ -28,15 +29,25 @@ class ReversiBoard extends Pane {
 
         for(int i = 0; i < 8; i++) {
             horizontal[i] = new Line();
-            horizontal[i].setStroke(Color.BLUE);
+            horizontal[i].setStroke(Color.WHITE);
             horizontal[i].setStartX(0);
             horizontal[i].setStartY(0);
             horizontal[i].setEndY(0);
             horizontal_t[i] = new Translate(0,0);
             horizontal[i].getTransforms().add(horizontal_t[i]);
-//            getChildren().add(horizontal[i]);
+            getChildren().add(horizontal[i]);
         }
-        getChildren().addAll(background, horizontal[0], horizontal[1]);
+
+        for(int i = 0; i < 8; i++) {
+            vertical[i] = new Line();
+            vertical[i].setStroke(Color.WHITE);
+            vertical[i].setStartX(0);
+            vertical[i].setStartY(0);
+            vertical[i].setEndX(0);
+            vertical_t[i] = new Translate(0,0);
+            vertical[i].getTransforms().add(vertical_t[i]);
+            getChildren().add(vertical[i]);
+        }
     }
 
     // public method that will try to place a piece in the given x,y coordinate
@@ -54,9 +65,15 @@ class ReversiBoard extends Pane {
         background.setWidth(width);
         background.setHeight(height);
 
-        horizontal_t[0].setY(cell_height);
-//        ch_two.setY(2 * cell_height);
-        horizontal[0].setEndX(width);
+        for(int i = 0; i < 8; i++) {
+            horizontal_t[i].setY((i + 1) * cell_height);
+            horizontal[i].setEndX(width);
+        }
+
+        for(int i = 0; i < 8; i++) {
+            vertical_t[i].setX((i + 1) * cell_width);
+            vertical[i].setEndY(height);
+        }
 //        h2.setEndX(width);
 
 //        ch_one.setX(cell_width);
