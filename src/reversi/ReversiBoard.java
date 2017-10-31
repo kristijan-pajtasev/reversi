@@ -1,4 +1,4 @@
-package sample;
+package reversi;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
