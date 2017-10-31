@@ -9,9 +9,13 @@ import javafx.scene.control.Control;
 
 //class definition for a custom reversi control
 class ReversiControl extends Control {
+    private final ReversiBoard reversiBoard;
+
     // constructor for the class
     public ReversiControl() {
         setSkin(new ReversiControlSkin(this));
+        reversiBoard = new ReversiBoard();
+        getChildren().add(reversiBoard);
     }
 
     // overridden version of the resize method
