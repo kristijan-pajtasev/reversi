@@ -16,6 +16,9 @@ class ReversiControl extends Control {
         setSkin(new ReversiControlSkin(this));
         reversiBoard = new ReversiBoard();
         getChildren().add(reversiBoard);
+
+        // TODO: add click handler which calls placePiece - pt 4
+        // TODO: add press handler which calls reset when space is clicked - pt 4
     }
 
     // overridden version of the resize method

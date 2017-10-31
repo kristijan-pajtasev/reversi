@@ -24,7 +24,8 @@ public class Reversi extends Application {
 	// overridden start method
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Reversi");
-		primaryStage.setScene(new Scene(stackPane, 400, 300));
+		// TODO: update to 800x800
+		primaryStage.setScene(new Scene(stackPane, 400, 400));
 		primaryStage.show();
 	}
 	

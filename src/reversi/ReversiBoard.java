@@ -14,40 +14,22 @@ import javafx.scene.transform.Translate;
 class ReversiBoard extends Pane {
     // default constructor for the class
     public ReversiBoard() {
-        // TODO: set init state
+        render = new ReversiPiece[8][8];
+        surrounding = new int[3][3];
+        can_reverse = new boolean[3][3];
 
-        // TODO: set background
         background = new Rectangle();
-        background.setFill(Color.BLACK);
-        getChildren().addAll(background);
 
-        // TODO: set lines
         horizontal = new Line[8];
         horizontal_t = new Translate[8];
         vertical = new Line[8];
         vertical_t = new Translate[8];
 
-        for(int i = 0; i < 8; i++) {
-            horizontal[i] = new Line();
-            horizontal[i].setStroke(Color.WHITE);
-            horizontal[i].setStartX(0);
-            horizontal[i].setStartY(0);
-            horizontal[i].setEndY(0);
-            horizontal_t[i] = new Translate(0,0);
-            horizontal[i].getTransforms().add(horizontal_t[i]);
-            getChildren().add(horizontal[i]);
-        }
+        initialiseLinesBackground();
 
-        for(int i = 0; i < 8; i++) {
-            vertical[i] = new Line();
-            vertical[i].setStroke(Color.WHITE);
-            vertical[i].setStartX(0);
-            vertical[i].setStartY(0);
-            vertical[i].setEndX(0);
-            vertical_t[i] = new Translate(0,0);
-            vertical[i].getTransforms().add(vertical_t[i]);
-            getChildren().add(vertical[i]);
-        }
+        initialiseRender();
+
+        resetGame();
     }
 
     // public method that will try to place a piece in the given x,y coordinate
@@ -85,17 +67,47 @@ class ReversiBoard extends Pane {
 
     // public method for resetting the game
     public void resetGame() {
+        resetRenders();
 
+        render[3][3].setPiece(1);
+        render[4][4].setPiece(1);
+
+        render[3][4].setPiece(2);
+        render[4][3].setPiece(2);
     }
 
     // private method that will reset the renders
     private void resetRenders() {
-
+        for(int i = 0; i < 8; i++)
+            for(int j = 0; j < 8; j++) render[i][j].setPiece(0);
     }
 
     // private method that will initialise the background and the lines
     private void initialiseLinesBackground() {
+        background.setFill(Color.CYAN);
+        getChildren().addAll(background);
 
+        for(int i = 0; i < 8; i++) {
+            horizontal[i] = new Line();
+            horizontal[i].setStroke(Color.WHITE);
+            horizontal[i].setStartX(0);
+            horizontal[i].setStartY(0);
+            horizontal[i].setEndY(0);
+            horizontal_t[i] = new Translate(0,0);
+            horizontal[i].getTransforms().add(horizontal_t[i]);
+            getChildren().add(horizontal[i]);
+        }
+
+        for(int i = 0; i < 8; i++) {
+            vertical[i] = new Line();
+            vertical[i].setStroke(Color.WHITE);
+            vertical[i].setStartX(0);
+            vertical[i].setStartY(0);
+            vertical[i].setEndX(0);
+            vertical_t[i] = new Translate(0,0);
+            vertical[i].getTransforms().add(vertical_t[i]);
+            getChildren().add(vertical[i]);
+        }
     }
 
     // private method for resizing and relocating the horizontal lines
@@ -187,7 +199,8 @@ class ReversiBoard extends Pane {
 
     // private method that will initialise everything in the render array
     private void initialiseRender() {
-
+        for(int i = 0; i < 8; i++)
+            for(int j = 0; j < 8; j++) render[i][j] = new ReversiPiece(0);
     }
 
 
