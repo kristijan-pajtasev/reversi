@@ -1,6 +1,8 @@
 package reversi;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Created by Kristijan Pajtasev
@@ -17,7 +19,13 @@ class ReversiControl extends Control {
         reversiBoard = new ReversiBoard();
         getChildren().add(reversiBoard);
 
-        // TODO: add click handler which calls placePiece - pt 4
+        setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                reversiBoard.placePiece(event.getX(), event.getY());
+            }
+        });
+
         // TODO: add press handler which calls reset when space is clicked - pt 4
     }
 
