@@ -1,6 +1,7 @@
 package reversi;
 
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.transform.Translate;
 
@@ -12,29 +13,54 @@ import javafx.scene.transform.Translate;
 class ReversiPiece extends Group {
     // default constructor for the class
     public ReversiPiece(int player) {
-
+        t = new Translate();
+        piece = new Ellipse();
+        piece.getTransforms().add(t);
+        setPiece(player);
+        getChildren().add(piece);
     }
 
     // overridden version of the resize method to give the piece the correct size
     @Override
     public void resize(double width, double height) {
+        super.resize(width, height);
 
+        piece.setCenterX(width / 2);
+        piece.setCenterY(width / 2);
+
+        piece.setRadiusX(width / 2);
+        piece.setRadiusY(height / 2);
     }
 
     // overridden version of the relocate method to position the piece correctly
     @Override
     public void relocate(double x, double y) {
-
+        super.relocate(x, y);
+        t.setX(x);
+        t.setY(y);
     }
 
     // public method that will swap the colour and type of this piece
     public void swapPiece() {
-
+        if(player == 1) setPiece(2);
+        else setPiece(1);
     }
 
     // method that will set the piece type
     public void setPiece(final int type) {
+        player = type;
 
+        switch(type) {
+            case 0:
+                piece.setFill(Color.TRANSPARENT);
+                break;
+            case 1:
+                piece.setFill(Color.WHITE);
+                break;
+            case 2:
+                piece.setFill(Color.BLACK);
+                break;
+        }
     }
 
     // returns the type of this piece

@@ -100,7 +100,8 @@ class ReversiBoard extends Pane {
     }
 
     // private method for resizing and relocating the horizontal lines
-    private void horizontalResizeRelocate(final double width) {
+    private void
+    horizontalResizeRelocate(final double width) {
         for(int i = 0; i < 8; i++) {
             horizontal_t[i].setY((i + 1) * cell_height);
             horizontal[i].setEndX(width);
@@ -199,7 +200,10 @@ class ReversiBoard extends Pane {
     // private method that will initialise everything in the render array
     private void initialiseRender() {
         for(int i = 0; i < 8; i++)
-            for(int j = 0; j < 8; j++) render[i][j] = new ReversiPiece(0);
+            for(int j = 0; j < 8; j++) {
+                render[i][j] = new ReversiPiece(0);
+                getChildren().add(render[i][j]);
+            }
     }
 
 
