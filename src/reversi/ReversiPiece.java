@@ -65,8 +65,7 @@ class ReversiPiece extends Group {
 
     // returns the type of this piece
     public int getPiece() {
-        // NOTE: this is to keep the compiler happy until you get to this point
-        return 0;
+        return player;
     }
 
     // private fields
