@@ -178,7 +178,7 @@ class ReversiBoard extends Pane {
     // for determing reverse chains much easier
     private int getPiece(final int x, final int y) {
         // NOTE: this is to keep the compiler happy until you get to this point
-        return 0;
+        return x >= 0 && x < 8 && y >= 0 && y < 8 ? render[x][y].getPiece() : -1;
     }
 
     // private method that will determine if the end of the game has been reached
