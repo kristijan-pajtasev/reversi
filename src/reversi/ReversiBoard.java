@@ -14,6 +14,8 @@ import javafx.scene.transform.Translate;
 class ReversiBoard extends Pane {
     // default constructor for the class
     public ReversiBoard() {
+        current_player = 2;
+        opposing = 1;
         render = new ReversiPiece[8][8];
         surrounding = new int[3][3];
         can_reverse = new boolean[3][3];
@@ -34,6 +36,45 @@ class ReversiBoard extends Pane {
 
     // public method that will try to place a piece in the given x,y coordinate
     public void placePiece(final double x, final double y) {
+        // figure out which cell the current player has clicked on
+        final int cellx = (int) (x / cell_width);
+        final int celly = (int) (y / cell_height);
+
+        // if the game is not in play then do nothing
+        if(!in_play)
+            return;
+
+        // if there is a piece already placed then return and do nothing
+        if(render[cellx][celly].getPiece() != 0)
+            return;
+
+        // determine what pieces surround the current piece. if there is no opposing
+        // pieces then a valid move cannot be made.
+        determineSurrounding(cellx, celly);
+        if(!adjacentOpposingPiece())
+            return;
+
+        // see if a reverse can be made in any direction if none can be made then return
+        if(!determineReverse(cellx, celly))
+            return;
+
+        // at this point we have done all the checks and they have passed so now we can place
+        // the piece and perform the reversing also check if the game has ended
+        placeAndReverse(cellx, celly);
+
+        // if we get to this point then a successful move has been made so swap the
+        // players and update the scores
+        swapPlayers();
+        updateScores();
+        determineEndGame();
+
+        // print out some information
+        System.out.println("placed at: " + cellx + ", " + celly);
+        System.out.println("White: " + player1_score + " Black: " + player2_score);
+        if(current_player == 1)
+            System.out.println("current player is White");
+        else
+            System.out.println("current player is Black");
     }
 
     // overridden version of the resize method to give the board the correct size
@@ -56,13 +97,17 @@ class ReversiBoard extends Pane {
 
     // public method for resetting the game
     public void resetGame() {
+        in_play = true;
+
         resetRenders();
 
         render[3][3].setPiece(1);
         render[4][4].setPiece(1);
+        player1_score = 2;
 
         render[3][4].setPiece(2);
         render[4][3].setPiece(2);
+        player2_score = 2;
     }
 
     // private method that will reset the renders
@@ -138,7 +183,10 @@ class ReversiBoard extends Pane {
     // private method for determining which pieces surround x,y will update the
     // surrounding array to reflect this
     private void determineSurrounding(final int x, final int y) {
-
+        for(int i = x - 1; i <= x + 1; i++)
+            for(int j = y - 1; j <= y + 1; j++) {
+                surrounding[i - (x - 1)][j - (y - 1)] = render[i][j].getPiece();
+            }
     }
 
     // private method for determining if a reverse can be made will update the can_reverse
@@ -159,7 +207,11 @@ class ReversiBoard extends Pane {
     // private method for determining if any of the surrounding pieces are an opposing
     // piece. if a single one exists then return true otherwise false
     private boolean adjacentOpposingPiece() {
-        // NOTE: this is to keep the compiler happy until you get to this part
+        for(int i = 0; i < 3; i++)
+            for(int j = 0; j < 3; j++) {
+                if((i != 1 && j != 1) && (surrounding[i][j] != 0 && surrounding[i][j] != surrounding[1][1]))
+                    return true;
+            }
         return false;
     }
 
