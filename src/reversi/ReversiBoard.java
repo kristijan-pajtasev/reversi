@@ -185,7 +185,8 @@ class ReversiBoard extends Pane {
     private void determineSurrounding(final int x, final int y) {
         for(int i = x - 1; i <= x + 1; i++)
             for(int j = y - 1; j <= y + 1; j++) {
-                surrounding[i - (x - 1)][j - (y - 1)] = render[i][j].getPiece();
+                if(isValidIndex(i - (x - 1), j - (y - 1)))
+                    surrounding[i - (x - 1)][j - (y - 1)] = render[i][j].getPiece();
             }
     }
 
