@@ -201,7 +201,24 @@ class ReversiBoard extends Pane {
     // assumes that the first piece has already been checked
     private boolean isReverseChain(final int x, final int y, final int dx, final int dy, final int player) {
         // NOTE: this is to keep the compiler happy until you get to this part
-        return false;
+        int tempX = x + dx;
+        int tempY = y + dy;
+        if(!isValidIndex(tempX, tempY)) return false;
+        if(!isValidIndex(tempX, tempY) ||
+            !(render[tempX][tempY].getPiece() != 0 && render[tempX][tempY].getPiece() != render[x][y].getPiece()))
+            return false;
+
+        while(render[tempX][tempY].getPiece() != render[x][y].getPiece()) {
+            if(!isValidIndex(tempX + dx, tempY + dy)) return false;
+            tempX += dx;
+            tempY += dy;
+        }
+
+        return render[tempX][tempY].getPiece() == render[x][y].getPiece();
+    }
+
+    private boolean isValidIndex(int x, int y) {
+        return x >= 0 && y >= 0 && x < 8 && y < 8;
     }
 
     // private method for determining if any of the surrounding pieces are an opposing
