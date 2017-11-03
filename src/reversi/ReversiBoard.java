@@ -163,7 +163,9 @@ class ReversiBoard extends Pane {
 
     // private method for swapping the players
     private void swapPlayers() {
-
+        int temp = opposing;
+        opposing = current_player;
+        current_player = temp;
     }
 
     // private method for updating the player scores
