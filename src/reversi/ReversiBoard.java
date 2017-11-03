@@ -200,7 +200,7 @@ class ReversiBoard extends Pane {
         for(int i = x - 1; i <= x + 1; i++)
             for(int j = y - 1; j <= y + 1; j++) {
                 if(!isValidIndex(x, y)) can_reverse[i - (x - 1)][j - (j - 1)] = false;
-                else if(i != x && j != y) {
+                else if(i != x || j != y) {
                     can_reverse[i - (x - 1)][j - (j - 1)] = isReverseChain(x, y, i - x, j - y, current_player);
                     if(can_reverse[i - (x - 1)][j - (j - 1)]) hasReverse = true;
                 }
@@ -246,7 +246,12 @@ class ReversiBoard extends Pane {
 
     // private method for placing a piece and reversing pieces
     private void placeAndReverse(final int x, final int y) {
-
+        for(int i = x - 1; i <= x + 1; i++)
+            for(int j = y - 1; j <= y + 1; j++) {
+                if(isValidIndex(i, j) && (i != x || j != y)) {
+                    reverseChain(x, y, i - x, i - y);
+                }
+            }
     }
 
     // private method to reverse a chain
