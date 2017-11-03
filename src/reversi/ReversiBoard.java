@@ -185,7 +185,7 @@ class ReversiBoard extends Pane {
     private void determineSurrounding(final int x, final int y) {
         for(int i = x - 1; i <= x + 1; i++)
             for(int j = y - 1; j <= y + 1; j++) {
-                if(isValidIndex(i - (x - 1), j - (y - 1)))
+                if(isValidIndex(i, j))
                     surrounding[i - (x - 1)][j - (y - 1)] = render[i][j].getPiece();
             }
     }
@@ -194,7 +194,16 @@ class ReversiBoard extends Pane {
     // array to reflect the answers will return true if a single reverse is found
     private boolean determineReverse(final int x, final int y) {
         // NOTE: this is to keep the compiler happy until you get to this part
-        return false;
+        boolean hasReverse = false;
+        for(int i = x - 1; i <= x + 1; i++)
+            for(int j = y - 1; j <= y + 1; j++) {
+                if(!isValidIndex(x, y)) can_reverse[i - (x - 1)][j - (j - 1)] = false;
+                else if(i != x && j != y) {
+                    can_reverse[i - (x - 1)][j - (j - 1)] = isReverseChain(x, y, i - x, j - y, current_player);
+                    if(can_reverse[i - (x - 1)][j - (j - 1)]) hasReverse = true;
+                }
+            }
+        return hasReverse;
     }
 
     // private method for determining if a reverse can be made from a position (x,y) for
