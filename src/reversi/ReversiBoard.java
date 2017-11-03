@@ -249,7 +249,10 @@ class ReversiBoard extends Pane {
 
     // private method to reverse a chain
     private void reverseChain(final int x, final int y, final int dx, final int dy) {
-
+        if(!isValidIndex(x + dx, y + dy)) return;
+        if(render[x + dx][y + dy].getPiece() == current_player) return;
+        render[x + dx][y + dy].setPiece(current_player);
+        reverseChain(x + dx, y + dy, dx, dy);
     }
 
     // private method for getting a piece on the board. this will return the board
