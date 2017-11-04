@@ -103,11 +103,9 @@ class ReversiBoard extends Pane {
 
         render[3][3].setPiece(1);
         render[4][4].setPiece(1);
-        player1_score = 2;
 
         render[3][4].setPiece(2);
         render[4][3].setPiece(2);
-        player2_score = 2;
     }
 
     // private method that will reset the renders
@@ -257,7 +255,7 @@ class ReversiBoard extends Pane {
     // private method to reverse a chain
     private void reverseChain(final int x, final int y, final int dx, final int dy) {
         if(!isValidIndex(x + dx, y + dy)) return;
-        if(render[x + dx][y + dy].getPiece() == current_player) return;
+        if(render[x + dx][y + dy].getPiece() != opposing) return;
         render[x + dx][y + dy].setPiece(current_player);
         reverseChain(x + dx, y + dy, dx, dy);
     }
