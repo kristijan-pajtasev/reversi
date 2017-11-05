@@ -236,7 +236,7 @@ class ReversiBoard extends Pane {
     private boolean adjacentOpposingPiece() {
         for(int i = 0; i < 3; i++)
             for(int j = 0; j < 3; j++) {
-                if((i != 1 && j != 1) && (surrounding[i][j] != 0 && surrounding[i][j] != surrounding[1][1]))
+                if((i != 1 || j != 1) && (surrounding[i][j] != 0 && surrounding[i][j] != current_player))
                     return true;
             }
         return false;
