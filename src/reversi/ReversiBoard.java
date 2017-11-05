@@ -197,10 +197,10 @@ class ReversiBoard extends Pane {
         boolean hasReverse = false;
         for(int i = x - 1; i <= x + 1; i++)
             for(int j = y - 1; j <= y + 1; j++) {
-                if(!isValidIndex(x, y)) can_reverse[i - (x - 1)][j - (j - 1)] = false;
+                if(!isValidIndex(i, j)) can_reverse[i - (x - 1)][j - (y - 1)] = false;
                 else if(i != x || j != y) {
-                    can_reverse[i - (x - 1)][j - (j - 1)] = isReverseChain(x, y, i - x, j - y, current_player);
-                    if(can_reverse[i - (x - 1)][j - (j - 1)]) hasReverse = true;
+                    can_reverse[i - (x - 1)][j - (y - 1)] = isReverseChain(x, y, i - x, j - y, current_player);
+                    if(can_reverse[i - (x - 1)][j - (y - 1)]) hasReverse = true;
                 }
             }
         return hasReverse;
@@ -213,8 +213,7 @@ class ReversiBoard extends Pane {
         // NOTE: this is to keep the compiler happy until you get to this part
         int tempX = x + dx;
         int tempY = y + dy;
-        if(!isValidIndex(tempX, tempY) ||
-            !(render[tempX][tempY].getPiece() != 0 && render[tempX][tempY].getPiece() != render[x][y].getPiece()))
+        if(!isValidIndex(tempX, tempY) || render[tempX][tempY].getPiece() != opposing)
             return false;
 
         while(render[tempX][tempY].getPiece() == opposing) {
@@ -243,10 +242,11 @@ class ReversiBoard extends Pane {
 
     // private method for placing a piece and reversing pieces
     private void placeAndReverse(final int x, final int y) {
+        render[x][y].setPiece(current_player);
         for(int i = x - 1; i <= x + 1; i++)
             for(int j = y - 1; j <= y + 1; j++) {
-                if(isValidIndex(i, j) && (i != x || j != y)) {
-                    reverseChain(x, y, i - x, i - y);
+                if(isValidIndex(i, j) && (i != x || j != y) && can_reverse[i-(x-1)][j-(y-1)]) {
+                    reverseChain(x, y, i - x, j - y);
                 }
             }
     }
