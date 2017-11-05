@@ -213,18 +213,17 @@ class ReversiBoard extends Pane {
         // NOTE: this is to keep the compiler happy until you get to this part
         int tempX = x + dx;
         int tempY = y + dy;
-        if(!isValidIndex(tempX, tempY)) return false;
         if(!isValidIndex(tempX, tempY) ||
             !(render[tempX][tempY].getPiece() != 0 && render[tempX][tempY].getPiece() != render[x][y].getPiece()))
             return false;
 
-        while(render[tempX][tempY].getPiece() != render[x][y].getPiece()) {
+        while(render[tempX][tempY].getPiece() == opposing) {
             if(!isValidIndex(tempX + dx, tempY + dy)) return false;
             tempX += dx;
             tempY += dy;
         }
 
-        return render[tempX][tempY].getPiece() == render[x][y].getPiece();
+        return render[tempX][tempY].getPiece() == current_player;
     }
 
     private boolean isValidIndex(int x, int y) {
