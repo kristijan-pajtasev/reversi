@@ -289,7 +289,9 @@ class ReversiBoard extends Pane {
 
     // private method that determines who won the game
     private void determineWinner() {
-
+        if(player1_score > player2_score) System.out.println("Player 1 is winner");
+        else if(player2_score > player1_score) System.out.println("Player 2 is winner");
+        else System.out.println("No winner");
     }
 
     // private method that will initialise everything in the render array
