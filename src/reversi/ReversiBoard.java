@@ -168,7 +168,16 @@ class ReversiBoard extends Pane {
 
     // private method for updating the player scores
     private void updateScores() {
-
+        for(int i = 0; i < 8; i++)
+            for(int j = 0; j < 8; j++)
+                switch(render[i][j].getPiece()) {
+                    case 1:
+                        player1_score++;
+                        break;
+                    case 2:
+                        player2_score++;
+                        break;
+                }
     }
 
     // private method for resizing and relocating all the pieces
