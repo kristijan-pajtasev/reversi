@@ -278,7 +278,18 @@ class ReversiBoard extends Pane {
 
     // private method that will determine if the end of the game has been reached
     private void determineEndGame() {
-
+        if(player1_score + player2_score == 56 ||
+                (player1_score == 0 || player2_score == 0)) {
+            in_play = false;
+            return;
+        }
+        if(!canMove()) {
+            swapPlayers();
+            if(!canMove()) {
+                in_play = false;
+                return;
+            }
+        }
     }
 
     // private method to determine if a player has a move available
