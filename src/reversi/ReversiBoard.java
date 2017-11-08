@@ -75,6 +75,8 @@ class ReversiBoard extends Pane {
             System.out.println("current player is White");
         else
             System.out.println("current player is Black");
+
+        if(!in_play) determineWinner();
     }
 
     // overridden version of the resize method to give the board the correct size
@@ -168,6 +170,7 @@ class ReversiBoard extends Pane {
 
     // private method for updating the player scores
     private void updateScores() {
+        player1_score = player2_score = 0;
         for(int i = 0; i < 8; i++)
             for(int j = 0; j < 8; j++)
                 switch(render[i][j].getPiece()) {
@@ -278,16 +281,13 @@ class ReversiBoard extends Pane {
 
     // private method that will determine if the end of the game has been reached
     private void determineEndGame() {
-        if(player1_score + player2_score == 56 ||
+        if(player1_score + player2_score == 64 ||
                 (player1_score == 0 || player2_score == 0)) {
             in_play = false;
-            return;
-        }
-        if(!canMove()) {
+        } else if(!canMove()) {
             swapPlayers();
             if(!canMove()) {
                 in_play = false;
-                return;
             }
         }
     }
@@ -295,6 +295,14 @@ class ReversiBoard extends Pane {
     // private method to determine if a player has a move available
     private boolean canMove() {
         // NOTE: this is to keep the compiler happy until you get to this part
+        for(int i = 0; i < 8; i++)
+            for(int j = 0; j < 8; j++) {
+                if(render[i][j].getPiece() == 0) {
+                    determineSurrounding(i, j);
+                    if(adjacentOpposingPiece() && determineReverse(i, j))
+                        return true;
+                }
+            }
         return false;
     }
 
