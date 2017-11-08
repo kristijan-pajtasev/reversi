@@ -2,6 +2,8 @@ package reversi;
 
 import javafx.event.EventHandler;
 import javafx.scene.control.Control;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -27,6 +29,14 @@ class ReversiControl extends Control {
         });
 
         // TODO: add press handler which calls reset when space is clicked - pt 4
+        setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if(event.getCode() == KeyCode.SPACE) {
+                    reversiBoard.resetGame();
+                }
+            }
+        });
     }
 
     // overridden version of the resize method

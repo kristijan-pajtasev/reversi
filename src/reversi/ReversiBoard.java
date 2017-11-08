@@ -108,6 +108,11 @@ class ReversiBoard extends Pane {
 
         render[3][4].setPiece(2);
         render[4][3].setPiece(2);
+        player1_score = 2;
+        player2_score = 2;
+        current_player = 2;
+        opposing = 1;
+
     }
 
     // private method that will reset the renders
